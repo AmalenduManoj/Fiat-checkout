@@ -1,6 +1,7 @@
 import { CiCreditCard1 } from "react-icons/ci";
 import { CiWallet } from "react-icons/ci";
 import { MdOutlineContactless } from "react-icons/md";
+import { IoMdLock } from "react-icons/io";
 
 export default function PaymentForm() {
   return (
@@ -69,13 +70,16 @@ export default function PaymentForm() {
         </div>
       </div>
 
-      <p className="text-xs text-green-600">
-        Your payment is secured with 256-bit encryption
-      </p>
+      <div className="w-full flex justify-center items-center text-[12px] text-green-600 mt-10">
+        <IoMdLock color="#16A34A"/>
+        <p>Your payment is secured with 256-bit encryption</p>
+      </div>
 
-      <p className="text-blue-600 text-sm text-center cursor-pointer">
-        Other Payment Methods &gt;
-      </p>
+      <div className="text-center cursor-pointer space-y-2">
+        <p className="text-blue-600 text-[14px]">Other Payment Methods &gt;</p>
+        <p className="text-[10px]">By tapping Pay Now, you agree to our Terms of Service and
+Privacy Policy.</p>
+      </div>
 
     </div>
   );
