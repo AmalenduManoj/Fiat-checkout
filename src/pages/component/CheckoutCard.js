@@ -8,16 +8,15 @@ export default function CheckoutCard() {
     <div
       className="
         w-full 
-        max-w-md 
-        bg-white 
+        max-w-md
+        bg-zinc-100
         rounded-2xl 
         shadow-xl 
         p-6 
         space-y-6
-        md:max-w-lg
+        md:max-w-md
       "
     >
-      {/* Header with Back Arrow */}
       <CheckoutHeader />
 
       <ItemSummary />

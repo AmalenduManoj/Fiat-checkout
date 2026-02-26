@@ -1,14 +1,23 @@
+import { CiCreditCard1 } from "react-icons/ci";
+import { CiWallet } from "react-icons/ci";
+import { MdOutlineContactless } from "react-icons/md";
+
 export default function PaymentForm() {
   return (
     <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h2 className="font-semibold text-gray-800 text-[18px]">
+          Card Payment
+        </h2>
+        <div className="flex">
+          <CiCreditCard1 size={24} className="text-[#94A3B8]" />
+          <CiWallet size={24} className="text-[#94A3B8]" />
+        </div>
+      </div>
 
-      <h2 className="font-semibold text-gray-800">
-        Card Payment
-      </h2>
 
-      {/* Cardholder Name */}
       <div>
-        <label className="text-sm text-gray-600">
+        <label className="text-sm text-black">
           Cardholder Name
         </label>
         <input
@@ -18,22 +27,27 @@ export default function PaymentForm() {
         />
       </div>
 
-      {/* Card Number */}
       <div>
-        <label className="text-sm text-gray-600">
+        <label className="text-sm  text-black">
           Card Number
         </label>
-        <input
-          type="text"
-          placeholder="0000 0000 0000 0000"
-          className="w-full mt-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="relative mt-1">
+          <input
+            type="text"
+            placeholder="0000 0000 0000 0000"
+            className="w-full p-3 pr-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <MdOutlineContactless
+            size={22}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+          />
+        </div>
       </div>
 
-      {/* Expiry + CVV */}
       <div className="flex gap-4">
         <div className="flex-1">
-          <label className="text-sm text-gray-600">
+          <label className="text-sm text-black">
             Expiry Date
           </label>
           <input
@@ -44,7 +58,7 @@ export default function PaymentForm() {
         </div>
 
         <div className="flex-1">
-          <label className="text-sm text-gray-600">
+          <label className="text-sm text-black">
             CVV
           </label>
           <input
@@ -55,7 +69,6 @@ export default function PaymentForm() {
         </div>
       </div>
 
-      {/* Secure text */}
       <p className="text-xs text-green-600">
         Your payment is secured with 256-bit encryption
       </p>
