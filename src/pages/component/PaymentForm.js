@@ -3,7 +3,15 @@ import { CiWallet } from "react-icons/ci";
 import { MdOutlineContactless } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 
-export default function PaymentForm() {
+export default function PaymentForm({ formData, errors, onChange }) {
+  const baseInput =
+    "w-full mt-1 p-3 rounded-xl border focus:outline-none focus:ring-2";
+  const validInput = "border-gray-300 focus:ring-blue-500";
+  const invalidInput = "border-red-500 focus:ring-red-500";
+
+  const inputClass = (field) =>
+    `${baseInput} ${errors[field] ? invalidInput : validInput}`;
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -16,7 +24,6 @@ export default function PaymentForm() {
         </div>
       </div>
 
-
       <div>
         <label className="text-sm text-black">
           Cardholder Name
@@ -24,26 +31,43 @@ export default function PaymentForm() {
         <input
           type="text"
           placeholder="Enter name on card"
-          className="w-full mt-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={formData.cardholderName}
+          onChange={(e) => onChange("cardholderName", e.target.value)}
+          className={inputClass("cardholderName")}
         />
+        {errors.cardholderName && (
+          <p className="text-red-500 text-xs mt-1">{errors.cardholderName}</p>
+        )}
       </div>
 
       <div>
-        <label className="text-sm  text-black">
+        <label className="text-sm text-black">
           Card Number
         </label>
         <div className="relative mt-1">
           <input
             type="text"
             placeholder="0000 0000 0000 0000"
-            className="w-full p-3 pr-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.cardNumber}
+            onChange={(e) => {
+              const raw = e.target.value.replace(/\D/g, "").slice(0, 16);
+              const formatted = raw.replace(/(\d{4})(?=\d)/g, "$1 ");
+              onChange("cardNumber", formatted);
+            }}
+            className={`w-full p-3 pr-12 rounded-xl border focus:outline-none focus:ring-2 ${
+              errors.cardNumber
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-blue-500"
+            }`}
           />
-
           <MdOutlineContactless
             size={22}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
           />
         </div>
+        {errors.cardNumber && (
+          <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>
+        )}
       </div>
 
       <div className="flex gap-4">
@@ -54,8 +78,20 @@ export default function PaymentForm() {
           <input
             type="text"
             placeholder="MM/YY"
-            className="w-full mt-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            maxLength={5}
+            value={formData.expiryDate}
+            onChange={(e) => {
+              let val = e.target.value.replace(/[^\d/]/g, "");
+              if (val.length === 2 && !val.includes("/") && formData.expiryDate.length < 2) {
+                val = val + "/";
+              }
+              onChange("expiryDate", val);
+            }}
+            className={inputClass("expiryDate")}
           />
+          {errors.expiryDate && (
+            <p className="text-red-500 text-xs mt-1">{errors.expiryDate}</p>
+          )}
         </div>
 
         <div className="flex-1">
@@ -63,10 +99,19 @@ export default function PaymentForm() {
             CVV
           </label>
           <input
-            type="text"
+            type="password"
             placeholder="123"
-            className="w-full mt-1 p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            maxLength={4}
+            value={formData.cvv}
+            onChange={(e) => {
+              const val = e.target.value.replace(/\D/g, "");
+              onChange("cvv", val);
+            }}
+            className={inputClass("cvv")}
           />
+          {errors.cvv && (
+            <p className="text-red-500 text-xs mt-1">{errors.cvv}</p>
+          )}
         </div>
       </div>
 
