@@ -49,7 +49,7 @@ export default function PayButton({ onSubmit, loading }) {
               Processing...
             </>
           ) : (
-            "Pay Now • ₹14,900"
+            <><span>Pay Now </span><span className="text-blue">•</span><span>₹14,900</span></>
           )}
         </button>
       </div>

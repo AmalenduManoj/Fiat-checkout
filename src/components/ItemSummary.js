@@ -4,7 +4,7 @@ export default function ItemSummary() {
   return (
     <div className="bg-white rounded-xl p-4 flex gap-4 items-center">
       
-      <div className="w-16 h-16 relative">
+      <div className="w-20 h-20 relative">
         <Image
           src="/headphones.png"
           alt="Headphones"

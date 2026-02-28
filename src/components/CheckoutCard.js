@@ -98,7 +98,10 @@ export default function CheckoutCard() {
         query: { transactionId: data.transactionId },
       });
     } catch (err) {
-      setApiError(err.message || "Something went wrong. Please try again.");
+      router.push({
+        pathname: "/failure",
+        query: { message: err.message || "Something went wrong. Please try again." },
+      });
     } finally {
       setLoading(false);
     }
@@ -108,13 +111,12 @@ export default function CheckoutCard() {
     <div
       className="
         w-full 
-        max-w-md
+        max-w-sm
         bg-zinc-100
         rounded-2xl 
         shadow-xl 
         p-6 
         space-y-6
-        md:max-w-md
       "
     >
       <CheckoutHeader />

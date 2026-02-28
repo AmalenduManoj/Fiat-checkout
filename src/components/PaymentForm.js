@@ -5,7 +5,7 @@ import { IoMdLock } from "react-icons/io";
 
 export default function PaymentForm({ formData, errors, onChange }) {
   const baseInput =
-    "w-full mt-1 p-3 rounded-xl border focus:outline-none focus:ring-2";
+    "w-full mt-1 p-3 rounded-xl border focus:outline-none focus:ring-2 bg-white";
   const validInput = "border-gray-300 focus:ring-blue-500";
   const invalidInput = "border-red-500 focus:ring-red-500";
 
@@ -19,8 +19,8 @@ export default function PaymentForm({ formData, errors, onChange }) {
           Card Payment
         </h2>
         <div className="flex">
-          <CiCreditCard1 size={24} className="text-[#94A3B8]" />
-          <CiWallet size={24} className="text-[#94A3B8]" />
+          <CiCreditCard1 size={24} className="text-[#475569]" />
+          <CiWallet size={24} className="text-[#475569]" />
         </div>
       </div>
 
@@ -54,7 +54,7 @@ export default function PaymentForm({ formData, errors, onChange }) {
               const formatted = raw.replace(/(\d{4})(?=\d)/g, "$1 ");
               onChange("cardNumber", formatted);
             }}
-            className={`w-full p-3 pr-12 rounded-xl border focus:outline-none focus:ring-2 ${
+            className={`w-full p-3 pr-12 rounded-xl border focus:outline-none focus:ring-2 bg-white ${
               errors.cardNumber
                 ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:ring-blue-500"
@@ -98,31 +98,40 @@ export default function PaymentForm({ formData, errors, onChange }) {
           <label className="text-sm text-black">
             CVV
           </label>
-          <input
-            type="password"
-            placeholder="123"
-            maxLength={4}
-            value={formData.cvv}
-            onChange={(e) => {
-              const val = e.target.value.replace(/\D/g, "");
-              onChange("cvv", val);
-            }}
-            className={inputClass("cvv")}
-          />
+          <div className="relative mt-1">
+            <input
+              type="password"
+              placeholder="123"
+              maxLength={4}
+              value={formData.cvv}
+              onChange={(e) => {
+                const val = e.target.value.replace(/\D/g, "");
+                onChange("cvv", val);
+              }}
+              className={`w-full p-3 pr-10 rounded-xl border focus:outline-none focus:ring-2 bg-white ${
+                errors.cvv
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:ring-blue-500"
+              }`}
+            />
+            <span className="absolute right-3 top-1/3 -translate-y-1/2 w-3 h-3 rounded-full border border-slate-400 flex items-center justify-center text-slate-400 text-xs text-[#94A3B8]">
+              ?
+            </span>
+          </div>
           {errors.cvv && (
             <p className="text-red-500 text-xs mt-1">{errors.cvv}</p>
           )}
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-center text-[12px] text-green-600 mt-10">
+      <div className="w-full flex justify-center items-center text-[12px] text-green-600 mt-2">
         <IoMdLock color="#16A34A"/>
-        <p>Your payment is secured with 256-bit encryption</p>
+        <p className="text-[#64748B]">Your payment is secured with 256-bit encryption</p>
       </div>
 
-      <div className="text-center cursor-pointer space-y-2">
-        <p className="text-blue-600 text-[14px]">Other Payment Methods &gt;</p>
-        <p className="text-[10px]">By tapping Pay Now, you agree to our Terms of Service and
+      <div className="text-center cursor-pointer space-y-2 mt-10">
+        <p className="text-[#135BEC] text-[14px] font-semibold">Other Payment Methods &gt;</p>
+        <p className="text-[10px] text-[#94A3B8]">By tapping Pay Now, you agree to our Terms of Service and
 Privacy Policy.</p>
       </div>
 

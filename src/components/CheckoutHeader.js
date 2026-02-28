@@ -8,9 +8,7 @@ export default function CheckoutHeader() {
 
   return (
     <div className="-mx-6 bg-gray-100 border-b border-gray-300">
-      <div className="relative flex items-center justify-center h-16">
-        
-        {/* Back Button */}
+      <div className="relative flex items-center justify-center h-16 -mt-4">
         <button
           onClick={() => router.back()}
           className="absolute left-4 flex items-center justify-center h-full"
@@ -20,8 +18,6 @@ export default function CheckoutHeader() {
             className="text-gray-800"
           />
         </button>
-
-        {/* Title */}
         <h1 className="text-lg font-semibold text-gray-900">
           Secure Checkout
         </h1>
