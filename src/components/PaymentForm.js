@@ -19,8 +19,8 @@ export default function PaymentForm({ formData, errors, onChange }) {
           Card Payment
         </h2>
         <div className="flex">
-          <CiCreditCard1 size={24} className="text-[#475569]" />
-          <CiWallet size={24} className="text-[#475569]" />
+          <CiCreditCard1 size={24} className="text-[#94A3B8]" />
+          <CiWallet size={24} className="text-[#94A3B8]" />
         </div>
       </div>
 

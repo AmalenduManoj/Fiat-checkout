@@ -75,6 +75,8 @@ export default function CheckoutCard() {
 
     setLoading(true);
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       const response = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
