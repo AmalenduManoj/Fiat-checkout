@@ -3,7 +3,7 @@ import { CiWallet } from "react-icons/ci";
 import { MdOutlineContactless } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 
-export default function PaymentForm({ formData, errors, onChange }) {
+export default function PaymentForm({ formData, errors, onChange, onBlur }) {
   const baseInput =
     "w-full mt-1 p-3 rounded-xl border focus:outline-none focus:ring-2 bg-white";
   const validInput = "border-gray-300 focus:ring-blue-500";
@@ -33,6 +33,7 @@ export default function PaymentForm({ formData, errors, onChange }) {
           placeholder="Enter name on card"
           value={formData.cardholderName}
           onChange={(e) => onChange("cardholderName", e.target.value)}
+          onBlur={() => onBlur("cardholderName")}
           className={inputClass("cardholderName")}
         />
         {errors.cardholderName && (
@@ -50,10 +51,11 @@ export default function PaymentForm({ formData, errors, onChange }) {
             placeholder="0000 0000 0000 0000"
             value={formData.cardNumber}
             onChange={(e) => {
-              const raw = e.target.value.replace(/\D/g, "").slice(0, 16);
+              const raw = e.target.value.replace(/\D/g, "").slice(0, 19);
               const formatted = raw.replace(/(\d{4})(?=\d)/g, "$1 ");
               onChange("cardNumber", formatted);
             }}
+            onBlur={() => onBlur("cardNumber")}
             className={`w-full p-3 pr-12 rounded-xl border focus:outline-none focus:ring-2 bg-white ${
               errors.cardNumber
                 ? "border-red-500 focus:ring-red-500"
@@ -87,6 +89,7 @@ export default function PaymentForm({ formData, errors, onChange }) {
               }
               onChange("expiryDate", val);
             }}
+            onBlur={() => onBlur("expiryDate")}
             className={inputClass("expiryDate")}
           />
           {errors.expiryDate && (
@@ -108,6 +111,7 @@ export default function PaymentForm({ formData, errors, onChange }) {
                 const val = e.target.value.replace(/\D/g, "");
                 onChange("cvv", val);
               }}
+              onBlur={() => onBlur("cvv")}
               className={`w-full p-3 pr-10 rounded-xl border focus:outline-none focus:ring-2 bg-white ${
                 errors.cvv
                   ? "border-red-500 focus:ring-red-500"

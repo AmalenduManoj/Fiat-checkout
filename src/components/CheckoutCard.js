@@ -32,8 +32,23 @@ export default function CheckoutCard() {
     const digitsOnly = data.cardNumber.replace(/\s/g, "");
     if (!digitsOnly) {
       newErrors.cardNumber = "Card number is required";
-    } else if (!/^\d{16}$/.test(digitsOnly)) {
-      newErrors.cardNumber = "Card number must be 16 digits";
+    } else if (!/^\d{13,19}$/.test(digitsOnly)) {
+      newErrors.cardNumber = "Card number must be 13–19 digits";
+    } else {
+      let sum = 0;
+      let alternate = false;
+      for (let i = digitsOnly.length - 1; i >= 0; i--) {
+        let n = parseInt(digitsOnly[i], 10);
+        if (alternate) {
+          n *= 2;
+          if (n > 9) n -= 9;
+        }
+        sum += n;
+        alternate = !alternate;
+      }
+      if (sum % 10 !== 0) {
+        newErrors.cardNumber = "Invalid card number";
+      }
     }
 
     if (!data.expiryDate.trim()) {
@@ -64,6 +79,14 @@ export default function CheckoutCard() {
       const newErrors = validate(updated);
       setErrors(newErrors);
     }
+  };
+
+  const handleBlur = (field) => {
+    const newErrors = validate(formData);
+    setErrors((prev) => ({
+      ...prev,
+      [field]: newErrors[field] || undefined,
+    }));
   };
 
   const handleSubmit = async () => {
@@ -128,6 +151,7 @@ export default function CheckoutCard() {
         formData={formData}
         errors={errors}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
 
       {apiError && (
